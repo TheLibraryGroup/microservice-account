@@ -1,0 +1,61 @@
+
+spring:
+    application:
+        name: thelibrary-ms-account
+    profiles:
+        active: local
+    cloud:
+        config:
+            uri: http://localhost:8888
+            profile: local, prod
+        discovery:
+            enabled: true
+    datasource:
+        driverClassName: org.postgresql.Driver
+        password: 123
+        username: admin_tl
+        url: jdbc:postgresql://localhost:5432/thelibrary_user?currentSchema=local
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                temp:
+                    use_jdbc_metadata_defaults: false
+        show-sql: true
+
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+
+server:
+    port: 8030
+
+keycloak:
+    auth-server-url: https://auth.thelibrary.mypoc.online/auth
+    ssl-required: all
+    bearer-only: true
+    cors: true
+    public-client: true
+    realm: TheLibrary
+    resource: thelibrary-app
+    security-constraints:
+        #    -   authRoles:
+        #        - user
+        #        - admin
+        #        securityCollections:
+        #        -   methods:
+        #            - GET
+        #            patterns:
+        #            - /api/books/*
+        #            - /api/books
+
